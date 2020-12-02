@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Day2
 {
-    class Rule
+    class Rule : IPasswordRule
     {
         public Rule(string input)
         {
@@ -16,6 +16,19 @@ namespace Day2
         public int MinCount { get; private set; }
         public int MaxCount { get; private set; }
         public char ExpectedCharacter { get; private set; }
+
+        public bool PasswordFollowsRule(string password)
+        {
+            var characterCount = 0;
+            foreach (var character in password)
+            {
+                if (character == ExpectedCharacter)
+                {
+                    characterCount++;
+                }
+            }
+            return characterCount >= MinCount && characterCount <= MaxCount;
+        }
 
         private void SetMinMaxCount(string[] parts)
         {
